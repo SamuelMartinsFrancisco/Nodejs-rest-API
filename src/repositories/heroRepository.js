@@ -12,8 +12,20 @@ export default class HeroRepository {
         return JSON.parse(await readFile(this.file));
     };
 
-    find() {
-        return this.#currentFileContent();
+    async find(id) {
+        if (typeof id === "undefined") { 
+            return this.#currentFileContent();
+        }
+        
+        const currentFile = await this.#currentFileContent();
+        const matchingFile = () => {
+            for(let i = 0, length = currentFile.length; i < length; i++) {
+                if (id === currentFile[i].id) {
+                    return currentFile[i];
+                }
+            } 
+        }
+        return matchingFile();
     };
 
     async create(data) {

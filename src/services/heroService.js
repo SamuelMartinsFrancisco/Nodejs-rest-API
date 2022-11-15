@@ -5,8 +5,8 @@ export default class HeroService {
         this.heroRepository = heroRepository;
     };
 
-    find() {
-       return this.heroRepository.find(); 
+    find(id) {
+       return this.heroRepository.find(id); 
     };
 
     create(data) {

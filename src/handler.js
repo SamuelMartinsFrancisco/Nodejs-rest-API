@@ -43,8 +43,18 @@ function handler (request, response) {
         pathname
     } = parse(url, true);
     
-    const key = `${pathname}:${method.toLowerCase()}`;
-    const chosen = allRoutes[key] || allRoutes.default;
+    // const key = `${pathname}:${method.toLowerCase()}`;
+    const key = () => {
+        const urlRegExp = new RegExp(`/heroes/([a-z,0-9,-]{36,36}):${method.toLowerCase()}`);
+        const urlHasAnId = urlRegExp.test(`${pathname}:${method.toLowerCase()}`);
+
+        if (urlHasAnId === true) {
+            return urlRegExp;
+        } 
+        return `${pathname}:${method.toLowerCase()}`;
+    }
+
+    const chosen = allRoutes[key()] || allRoutes.default;
     return Promise.resolve(chosen(request, response))
     .catch(handlerError(response));
 };
