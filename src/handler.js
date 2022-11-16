@@ -43,18 +43,25 @@ function handler (request, response) {
         pathname
     } = parse(url, true);
     
-    // const key = `${pathname}:${method.toLowerCase()}`;
+    const treatedPathname = pathname.charAt(pathname.length - 1) === '/' ? 
+                            pathname.slice(0, -1) : 
+                            pathname;
+
     const key = () => {
         const urlRegExp = new RegExp(`/heroes/([a-z,0-9,-]{36,36}):${method.toLowerCase()}`);
-        const urlHasAnId = urlRegExp.test(`${pathname}:${method.toLowerCase()}`);
+        const urlHasAnId = urlRegExp.test(`${treatedPathname}:${method.toLowerCase()}`);
 
         if (urlHasAnId === true) {
             return urlRegExp;
         } 
-        return `${pathname}:${method.toLowerCase()}`;
+        return `${treatedPathname}:${method.toLowerCase()}`;
     }
+    // validar se o id no corpo da url corresponde ao do objeto
 
-    const chosen = allRoutes[key()] || allRoutes.default;
+    // if (typeof key() == 'object' && allRoutes[key()].id !=) {}
+
+    console.log(allRoutes[key()]);
+    const chosen = allRoutes[key()] || allRoutes.default ;
     return Promise.resolve(chosen(request, response))
     .catch(handlerError(response));
 };

@@ -15,9 +15,13 @@ const routes = ({
     [/\/heroes\/([a-z,0-9,-]{36,36}):get/]: async (request, response) => {
         const id = request.url.split("/")[2];
         const hero = await heroService.find(id);
-        response.write(JSON.stringify({ result: hero }));
+        if (hero === undefined) {
+            response.write('Uuuups, hero not found!!');
+        } else {
+            response.write(JSON.stringify({ result: hero }));
+        }
         return response.end();
-        // Retorna um objeto vazio quando um ID inexistente é acessado ->  deveria lançar not found
+        // Retorna um objeto vazio quando um ID inexistente é acessado ->  precisa lançar o not found padrão
     },
 
     '/heroes:post': async (request, response) => {
