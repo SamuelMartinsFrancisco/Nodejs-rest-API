@@ -9,4 +9,4 @@ Esse projeto está sendo desenvolvido a partir de uma [aula](https://www.youtube
 <br>
 
 ## Como Abrir e Rodar o Projeto
-Depois de baixado, e acessada a pasta, você pode instalar as dependências do projeto por meio do comando `npm install`. Em seguida, para rodar o código, use `npm start`.
+Depois de baixado, e acessada a pasta, você pode instalar as dependências do projeto por meio do comando `npm install`. Em seguida, para rodar o código, use `npm start`; ele vai estar disponível em [localhost:3000](http://localhost:3000)
