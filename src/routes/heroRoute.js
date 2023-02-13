@@ -7,6 +7,7 @@ const routes = ({
 }) => ({
     '/heroes:get': async (request, response) => {
         const heroes = await heroService.find(undefined);
+        response.writeHead(200);
         response.write(JSON.stringify({ results: heroes }));
         return response.end();
     },
@@ -14,7 +15,9 @@ const routes = ({
     // https://paramdeo.com/blog/validating-uuids-with-regular-expressions-in-javascript -> Explicação quanto à estrutura da expressão regular do UUID
     [/\/heroes\/([a-z,0-9,-]{36,36}):get/]: async (request, response) => {
         const id = request.url.split("/")[2];
-        const hero = await heroService.find(id);
+        const [ hero ] = await heroService.find(id);
+    
+        console.log(hero);
         if (hero === undefined) {
             response.write('Uuuups, hero not found!!');
         } else {
@@ -33,18 +36,28 @@ const routes = ({
         response.writeHead(201, DEFAULT_HEADER);
         response.write(JSON.stringify({
             id,
-            success: 'User created with success!!'
+            success: 'Hero created with success!!'
         }));
 
         return response.end();
     }, 
-    /*
-    [/\/heroes\/([0-9]+):patch/]: async (request, response) => {
+    
+    [/\/heroes\/([a-z,0-9,-]{36,36}):patch/]: async (request, response) => {
         const id = request.url.split("/")[2];
-        console.log('Aqui está o ID: ', id);
-        response.write('Aqui está o ID: ' + id);
+        const data = await once(request, 'data');
+        const item = JSON.parse(data);
+        const [ , index ]  = await heroService.find(id);
+
+        const name = await heroService.update(item, index);
+        response.writeHead(200, DEFAULT_HEADER);
+        response.write(JSON.stringify({
+            name,
+            id,
+            success: 'Hero updated with success!!'
+        }));
+
         return response.end();
-    }*/
+    }
 });
 
 export {

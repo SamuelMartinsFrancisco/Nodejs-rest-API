@@ -21,24 +21,38 @@ export default class HeroRepository {
         const matchingFile = () => {
             for(let i = 0, length = currentFile.length; i < length; i++) {
                 if (id === currentFile[i].id) {
-                    return currentFile[i];
+                    return [currentFile[i], i];
                 }
             } 
         }
+        
         return matchingFile();
     };
 
     async create(data) {
         const currentFile = await this.#currentFileContent();
         currentFile.push(data);    // https://developer.mozilla.org/pt-BR/docs/Web/JavaScript/Reference/Global_Objects/Array/push
-    
+
         await writeFile(
             this.file,
             JSON.stringify(currentFile)
-        )
+        );
 
         return data.id;
     };
+
+    async update(data, index) {
+        const currentFile = await this.#currentFileContent();
+
+        currentFile[index] = Object.assign(currentFile[index], data);   // https://developer.mozilla.org/pt-BR/docs/Web/JavaScript/Reference/Global_Objects/Object/assign
+        
+        await writeFile(
+            this.file,
+            JSON.stringify(currentFile)
+        );
+
+        return currentFile[index].name;
+    }
 };
 
 /*

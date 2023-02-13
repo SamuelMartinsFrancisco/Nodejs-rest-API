@@ -12,4 +12,8 @@ export default class HeroService {
     create(data) {
         return this.heroRepository.create(data);
     };
-};
+
+    update(data, index) {
+        return this.heroRepository.update(data, index);
+    };
+}; 

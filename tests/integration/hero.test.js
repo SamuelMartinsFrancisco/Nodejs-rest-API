@@ -1,6 +1,7 @@
 import test from 'node:test';
 import assert from 'node:assert';
 import { promisify } from 'node:util';
+import HeroService from '../../src/services/heroService.js';
 
 test('Hero Integration Test Suite', async (t) => {
     const testPort = 9009;
@@ -9,7 +10,8 @@ test('Hero Integration Test Suite', async (t) => {
     process.env.PORT = testPort;
     const { server } = await import('../../src/index.js');
     const testServerAddress = `http://localhost:${testPort}/heroes`;
-    
+
+    ////////////////////////////////////////////////////////////////////////////////////
     await t.test('it should create a hero', async (t) => {
         const data = {
             name: "Batman",
@@ -20,7 +22,7 @@ test('Hero Integration Test Suite', async (t) => {
         const request = await fetch(testServerAddress, {
             method: 'POST',
             body: JSON.stringify(data)
-        })
+        });
 
         // https://nodejs.org/api/assert.html#assertdeepstrictequalactual-expected-message
         assert.deepStrictEqual(
@@ -45,8 +47,22 @@ test('Hero Integration Test Suite', async (t) => {
         );
     });
 
+    /////////////////////////////////////////////////////////////////////////////////////////////
+    await t.test('it should retrieve the heroes data', async (t) => {
+        const request = await fetch(testServerAddress, {
+            method: 'GET'
+        });
+
+        const result = await request.json();
+       
+        assert.strictEqual(request.status, 200);  // ??
+
+        // https://nodejs.org/api/assert.html
+        // https://www.baeldung.com/integration-testing-a-rest-api
+    });
+
     await promisify(server.close.bind(server))();   // http://cangaceirojavascript.com.br/por-que-voce-deveria-estar-usando-util-promisify/
 });
 
-// to run tests -> node test/integration/hero.test.js
+// to run tests -> node tests/integration/hero.test.js
 //           or -> node --test test/ 
