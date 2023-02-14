@@ -52,7 +52,21 @@ export default class HeroRepository {
         );
 
         return currentFile[index].name;
-    }
+    };
+
+    async remove(index) {
+        let currentFile = await this.#currentFileContent();
+        const name = currentFile[index].name;
+
+        currentFile.splice(index, 1);
+
+        await writeFile(
+            this.file,
+            JSON.stringify(currentFile)
+        );
+
+        return name;
+    };
 };
 
 /*

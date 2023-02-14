@@ -17,7 +17,6 @@ const routes = ({
         const id = request.url.split("/")[2];
         const [ hero ] = await heroService.find(id);
     
-        console.log(hero);
         if (hero === undefined) {
             response.write('Uuuups, hero not found!!');
         } else {
@@ -46,7 +45,7 @@ const routes = ({
         const id = request.url.split("/")[2];
         const data = await once(request, 'data');
         const item = JSON.parse(data);
-        const [ , index ]  = await heroService.find(id);
+        const [ , index ] = await heroService.find(id);
 
         const name = await heroService.update(item, index);
         response.writeHead(200, DEFAULT_HEADER);
@@ -57,6 +56,21 @@ const routes = ({
         }));
 
         return response.end();
+    },
+
+    [/\/heroes\/([a-z,0-9,-]{36,36}):delete/]: async (request, response) => {
+        const id = request.url.split("/")[2];
+        const [ , index ] = await heroService.find(id);
+
+        const name = await heroService.remove(index);
+        response.writeHead(200, DEFAULT_HEADER);
+        response.write(JSON.stringify({
+            name,
+            id,
+            success: 'Hero removed with success!!'
+        }));
+
+        return response.end(); 
     }
 });
 

@@ -6,7 +6,7 @@ export default class HeroService {
     };
 
     find(id) {
-       return this.heroRepository.find(id); 
+        return this.heroRepository.find(id); 
     };
 
     create(data) {
@@ -16,4 +16,8 @@ export default class HeroService {
     update(data, index) {
         return this.heroRepository.update(data, index);
     };
+
+    remove(index) {
+        return this.heroRepository.remove(index);
+    }
 }; 
