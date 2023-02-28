@@ -14,24 +14,24 @@ Depois de baixado, e acessada a pasta, você pode instalar as dependências do p
 <br>
 
 ## Acessando a API :door:
-* `GET`    
+* `GET`      
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-**/heroes** &nbsp; -> &nbsp; Retorna todos os heróis presentes na base de dados   
+**/heroes** &nbsp; -> &nbsp; Retorna todos os heróis presentes na base de dados     
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
-**/heroes/{id}**  &nbsp; -> &nbsp; Retorna o herói com ID correspondente ao informado, caso exista   
+**/heroes/{id}**  &nbsp; -> &nbsp; Retorna o herói com ID correspondente ao informado, caso exista     
 
-* `POST`    
+* `POST`      
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-**/heroes** &nbsp; -> &nbsp; Cria um novo herói    
+**/heroes** &nbsp; -> &nbsp; Cria um novo herói      
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-Corpo da requisição &nbsp; -> &nbsp; **{ "name": string, "age": number, "power": string }**  
+Corpo da requisição &nbsp; -> &nbsp; **{ "name": string, "age": number, "power": string }**    
 
-* `PATCH`      
+* `PATCH`        
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-**/heroes/{id}** &nbsp; -> &nbsp; Altera os dados do herói informado     
+**/heroes/{id}** &nbsp; -> &nbsp; Altera os dados do herói informado       
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-Corpo da requisição &nbsp; -> &nbsp; Você escolhe qual(is) campo(s) alterar      
+Corpo da requisição &nbsp; -> &nbsp; Você escolhe qual(is) campo(s) alterar        
 
-* `DELETE`    
+* `DELETE`      
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 **/heroes/{id}** &nbsp; -> &nbsp; apaga o herói informado
